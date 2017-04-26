@@ -1,7 +1,5 @@
 var results;
 
-alert("test");
-
 function db_search(input) {
     if(input.length === 0) {
         results = null;

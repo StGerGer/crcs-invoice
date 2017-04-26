@@ -10,7 +10,8 @@ app.config(function($routeProvider) {
         templateUrl: 'views/search.html',
     },
     all = {
-        templateUrl: 'views/all.html'
+        templateUrl: 'views/all.html',
+        controller: "searchCtrl"
     }
 
     $routeProvider
@@ -18,20 +19,20 @@ app.config(function($routeProvider) {
         .when('/all', all);
 });
 
-app.controller('invoiceCtrl', function($rootScope) {
-    window.telescope = $rootScope;
-    $rootScope.search_results = results;
-    $rootScope.has_results = false;
-    $rootScope.page = "search";
-});
+app.controller('invoiceCtrl', function($scope, $document) {
+    window.telescope = $scope;
+    $scope.search_results = results;
+    $scope.has_results = false;
+    $scope.page = "search";
 
-$('#searchbar').keyup(function() {
-    console.log("kewl");
-    if($('#searchbar').val() == "") {
-        //$('.results-table').css("opacity", "0");
-        db_search("zxqzxqykj"); // Clears the table... in a stupid way, but whatevs, amirite?
-    } else {
-        //$('.results-table').css("opacity", "1");
-        db_search($('#searchbar').val());
+    $scope.onSearchPress = function(event) {
+        console.log("kewl");
+        if($('#searchbar').val() == "") {
+            //$('.results-table').css("opacity", "0");
+            db_search("zxqzxqykj"); // Clears the table... in a stupid way, but whatevs, amirite?
+        } else {
+            //$('.results-table').css("opacity", "1");
+            db_search($('#searchbar').val());
+        }
     }
 });
