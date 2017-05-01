@@ -1,4 +1,4 @@
-<div id="all-page" class="text-center"> <!-- All of the invoices -->
+<div id="all-page" class="text-center" ng-init="get_all()"> <!-- All of the invoices -->
     <div class="container">
         <h1 class="display-2" id="title">
             <a class="fa fa-angle-left google-green clickable" href="#/"></a> <span class="google-blue">I</span><span class="google-red">n</span><span class="google-yellow">v</span><span class="google-blue">o</span><span class="google-green">i</span><span class="google-red">c</span><span class="google-blue">e</span><span class="google-yellow">s</span>
@@ -16,8 +16,11 @@
                         <th class="text-center">
                             Date
                         </th>
+                        <th class="text-center">
+                            Archive
+                        </th>
                     </thead>
-                    <tr ng-repeat="person in all_invoices" class="text-center clickable" onclick="getInvoice(person.invoiceID)">
+                    <tr ng-repeat="person in all_invoices" class="text-center clickable" ng-click="changePage('edit', person.invoiceID)">
                         <td>
                             {{ person.first + " " + person.last }}
                         </td>
@@ -27,11 +30,15 @@
                         <td>
                             {{ person.invoice_date }}
                         </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary deleter clickable" data-toggle="modal" data-target="#confirm" ng-click="select(person.invoiceID);">
+                                <i class="fa fa-trash-o" ></i>
+                            </button>
+
+                        </td>
                     </tr>
                 </table> <br />
             </div>
         </div>
     </div>
 </div>
-
-<script src="js/wrappers.js"></script>

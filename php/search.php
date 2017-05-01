@@ -1,6 +1,6 @@
 <?php
-    # Gets customer data via search from the CRCS database. Written by Nate St. George
-    include("conn.php");
+    # Gets customer data via search from the CRCS database.
+    require_once("conn.php");
 
     $q = $_REQUEST["q"];
 
@@ -15,5 +15,6 @@
             array_pop($rows); # Removes null result from end. Any other way breaks it, so this is what you get
             echo json_encode($rows);
         }
+        $result->free();
     }
 ?>

@@ -1,8 +1,8 @@
 <?php
-    # Gets all customer data from the CRCS database. Written by Nate St. George
-    include("conn.php");
+    # Gets all customer data from the CRCS database.
+    require_once("conn.php");
 
-    $sql = "SELECT * FROM `invoice_data`";
+    $sql = "SELECT * FROM `invoice_data` WHERE active = 1 ORDER BY invoiceID DESC";
 
     if(!$result = $db->query($sql)) {
         die('Couldn\'t get customer data: ' . $db->error);

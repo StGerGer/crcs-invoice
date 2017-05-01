@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300');
+@import url(https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
 @font-face {
     font-family: 'Futura';
@@ -13,13 +14,15 @@ html, body {
 
 footer {
     height: 30px;
+    z-index: 1000;
     border-top: 1px solid #DDD;
-    position: absolute;
+    position: fixed;
     width: 100vw;
     bottom: 0px;
+    background-color: #FFF;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4 {
     font-family: 'Futura';
     letter-spacing: -1px;
     text-rendering: optimizeLegibility;
@@ -40,6 +43,14 @@ a {
 
 .form-control {
     font-family: 'Roboto';
+}
+
+.form-control-feedback {
+    opacity: 0;
+}
+
+.has-warning .form-control-feedback {
+    opacity: 1;
 }
 
 .google-blue {
@@ -125,3 +136,27 @@ a {
 .main-up {
     transform: translateY(-18vh);
 }
+
+.no-select {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.deleter {
+    z-index: 999;
+}
+
+input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+input[type=checkbox] + label:before {
+  font-family: FontAwesome;
+  color: #DDD;
+  display: inline-block;
+}
+
+input[type=checkbox] + label:before { content: "\f0c8"; }
+input[type=checkbox] + label:before { letter-spacing: 10px; }
+
+input[type=checkbox]:checked + label:before { content: "\f14a"; }
+input[type=checkbox]:checked + label:before { letter-spacing: 5px; }

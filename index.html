@@ -20,18 +20,37 @@
         <!-- CSS -->
         <link rel="stylesheet" href="css/main.css" />
 
-        <!-- My JS -->
-
-
     </head>
     <body ng-app="invoices" ng-controller="invoiceCtrl">
         <div class="ng-cloak" ng-view>
 
         </div>
         <footer class="text-muted text-center">
-            <small>&copy; Nate St. George 2016, created for Castle Rock Computer Solutions</small>
+            <small>&copy; Nate St. George 2017, created for Castle Rock Computer Solutions</small>
         </footer>
+
+        <!-- Confirm modal -->
+        <div class="modal fade" id="confirm" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Archiving doesn't delete an entry, but it will be harder to access.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="archive(); window.telescope.changePage('all')">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
     </body>
 </html>
 
 <script src="js/app.js"></script>
+<script src="js/wrappers.js"></script>
