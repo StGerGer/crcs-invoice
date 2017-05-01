@@ -10,6 +10,7 @@ app.config(function($routeProvider) {
         templateUrl: 'views/search.html',
     },
     all = {
+<<<<<<< HEAD
         templateUrl: 'views/all.html'
     },
     create = {
@@ -17,6 +18,10 @@ app.config(function($routeProvider) {
     },
     edit = {
         templateUrl: 'views/edit.html'
+=======
+        templateUrl: 'views/all.html',
+        controller: "searchCtrl"
+>>>>>>> f6b2955d0b0703d3eeb9a41a5081bc39dbb78279
     }
 
     $routeProvider
@@ -26,6 +31,7 @@ app.config(function($routeProvider) {
         .when('/edit', edit);
 });
 
+<<<<<<< HEAD
 app.controller('invoiceCtrl', function($scope, $location) {
     window.telescope = $scope;
     window.telelocation = $location;
@@ -130,3 +136,22 @@ app.controller('invoiceCtrl', function($scope, $location) {
 
     get_all();
 });
+=======
+app.controller('invoiceCtrl', function($scope, $document) {
+    window.telescope = $scope;
+    $scope.search_results = results;
+    $scope.has_results = false;
+    $scope.page = "search";
+
+    $scope.onSearchPress = function(event) {
+        console.log("kewl");
+        if($('#searchbar').val() == "") {
+            //$('.results-table').css("opacity", "0");
+            db_search("zxqzxqykj"); // Clears the table... in a stupid way, but whatevs, amirite?
+        } else {
+            //$('.results-table').css("opacity", "1");
+            db_search($('#searchbar').val());
+        }
+    }
+});
+>>>>>>> f6b2955d0b0703d3eeb9a41a5081bc39dbb78279

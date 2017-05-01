@@ -1,6 +1,7 @@
 var results;
 var dc = new DataConvert();
 
+<<<<<<< HEAD
 function DataConvert() {
     this.toDatabase = function(edit) {
         var re_invoice = JSON.parse(localStorage.getItem("invoice_storage"));   // I know none of this would be necessary if I named things well...
@@ -66,6 +67,8 @@ function DataConvert() {
     }
 }
 
+=======
+>>>>>>> f6b2955d0b0703d3eeb9a41a5081bc39dbb78279
 function db_search(input) {
     if(input.length === 0) {
         results = null;
