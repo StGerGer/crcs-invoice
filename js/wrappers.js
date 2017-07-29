@@ -176,9 +176,10 @@ function get_all() {
 }
 
 function emailCustomer(pdf) {
-  $.post("./php/email.php", {pdf: pdf, invoice: dc.toDatabase(null, true)}, function(response) {
-    console.log(response);
-  })
+  // $.post("./php/email.php", {pdf: pdf, invoice: dc.toDatabase(null, true)}, function(response) {
+  //   console.log(response);
+  // })
+  
 }
 
 function archive() {
