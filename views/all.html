@@ -1,0 +1,44 @@
+<div id="all-page" class="text-center" ng-init="get_all()"> <!-- All of the invoices -->
+    <div class="container">
+        <h1 class="display-2" id="title">
+            <a class="fa fa-angle-left google-green clickable" href="#/"></a> <span class="google-blue">I</span><span class="google-red">n</span><span class="google-yellow">v</span><span class="google-blue">o</span><span class="google-green">i</span><span class="google-red">c</span><span class="google-blue">e</span><span class="google-yellow">s</span>
+        </h1>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <table class="table table-hover fill-width" id="all-table">
+                    <thead>
+                        <th class="text-center">
+                            Name
+                        </th>
+                        <th class="text-center">
+                            Email
+                        </th>
+                        <th class="text-center">
+                            Date
+                        </th>
+                        <th class="text-center">
+                            Archive
+                        </th>
+                    </thead>
+                    <tr ng-repeat="person in all_invoices" class="text-center clickable" ng-click="changePage('/invoice')">
+                        <td>
+                            {{ person.first_name + " " + person.last_name }}
+                        </td>
+                        <td>
+                            {{ person.email }}
+                        </td>
+                        <td>
+                            {{ person.date }}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-secondary deleter clickable" data-toggle="modal" data-target="#confirm" ng-click="select(person.invoiceID);">
+                                <i class="fa fa-trash-o" ></i>
+                            </button>
+
+                        </td>
+                    </tr>
+                </table> <br />
+            </div>
+        </div>
+    </div>
+</div>

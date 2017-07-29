@@ -1,0 +1,28 @@
+<div class="container vert-centerer with-footer" id="search-page">
+    <div class="text-center main-container">
+        <h1 class="display-2" id="title">
+            <span class="google-blue">I</span><span class="google-red">n</span><span class="google-yellow">v</span><span class="google-blue">o</span><span class="google-green">i</span><span class="google-red">c</span><span class="google-blue">e</span><span class="google-yellow">s</span>
+        </h1>
+        <div class="input-group">
+            <input type='text' id="searchbar" ng-model="search_field" class="form-control form-control-lg" ng-keyup="autoSearch()" placeholder="Search Database..." />
+            <span class='input-group-btn'>
+                <button class='btn btn-success clickable' ng-click="changePage('create')"><i class="fa fa-plus" aria-hidden="true"></i></button>
+            </span>
+        </div>
+
+        <table class="table table-hover fill-width results-table" ng-show="has_results">
+            <tr ng-repeat="person in search_results" class="text-center clickable" onclick="getInvoice(person.invoiceID)">
+                <td>
+                    {{ person.first + " " + person.last }}
+                </td>
+                <td>
+                    {{ person.email }}
+                </td>
+                <td>
+                    {{ person.invoice_date }}
+                </td>
+            </tr>
+        </table> <br />
+        <a class="btn btn-primary clickable" href="#all">View All Invoices</a>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div id="create-page" class="container text-center pt-3">
+    <h1 class="display-2">
+        <a class="fa fa-angle-left google-green clickable" href="#/"></a> <span class="google-blue">E</span><span class="google-red">d</span><span class="google-yellow">i</span><span class="google-blue">t</span>
+    </h1>
+
+    <div class="form-inline row mb-2">
+        <label for="first-name" class="col-sm-2 offset-md-2 col-form-label">Name</label>
+        <div class="col-md-6">
+            <input type="text" class="form-control" id="first-name" ng-model="invoice.first_name" placeholder="First" />
+            <input type="text" class="form-control" id="last-name" ng-model="invoice.last_name" placeholder="Last" />
+        </div>
+    </div>
+    <div class="form-group row" id="email-group">
+        <label for="email" class="col-sm-2 offset-md-2 col-form-label">Email</label>
+        <div class="col-md-6">
+            <input type="email" class="form-control" id="email" ng-model="invoice.email" ng-keyup="validateEmail(invoice.email)" placeholder="example@email.com" />
+            <small class="form-control-feedback">Make sure the email is formatted correctly.</small>
+        </div>
+    </div>
+    <div class="display-4 mb-2" style="font-size:190%">
+        Items
+    </div>
+    <div class="form-group row">
+        <table class="table col-md-8 offset-md-2" style="max-width:66.666667%" id="item-table">
+            <thead class="thead-default no-select">
+                <th>
+                    Name
+                </th>
+                <th>
+                    Price
+                </th>
+                <th>
+                    Is&nbsp;Hardware
+                </th>
+                <th>
+                    Remove
+                </th>
+            </thead>
+            <tr ng-repeat="item in invoice.item_object_array" class="">
+                <td>
+                    <input type="text" class="form-control" id="item-name" ng-model="item.name" placeholder="Name..." />
+                </td>
+                <td class="input-group">
+                    <span class="input-group-addon">$</span>
+                    <input type="number" class="form-control" id="item-price" ng-model="item.price" ng-change="calculateTotals()" placeholder="0.00" />
+                </td>
+                <td>
+                    <input type="checkbox" id="service{{$index}}" ng-model="item.is_hardware" ng-change="calculateTotals()" value="" />
+                    <label class="clickable" for="service{{$index}}">
+                    </label>
+                </td>
+                <td>
+                    <i class="fa fa-close text-danger clickable" ng-click="remove_item($index)" aria-hidden="true"></i>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <button ng-click="add_item()" class="btn btn-secondary mb-5 clickable"><i class="fa fa-plus" aria-hidden="true"></i> Add Item</button>
+
+    <div class="form-group row">
+        <label for="payment-type" class='col-md-2 offset-4 col-form-label'>Payment Type</label>
+        <div class="col-md-2">
+            <select class="custom-select" id="payment-type" ng-model="invoice.paid_by">
+                <option selected>Cash</option>
+                <option>CC</option>
+                <option>Other</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="discount" class="col-md-2 offset-4 col-form-label">Discount</label>
+        <div class="col-md-2 input-group">
+            <input class="form-control" id="discount" ng-change="calculateTotals()" ng-model="invoice.discount" type="number" />
+            <button class="btn btn-secondary" ng-click="toggleDiscountType(); calculateTotals()">{{invoice.discount_type}}</button>
+        </div>
+    </div>
+
+    <hr />
+
+    <div class="form-group row">
+        <label for="subtotal" class="col-md-2 offset-md-4">Subtotal</label>
+        <div class="col-md-2 input-group">
+            <span class="input-group-addon">$</span>
+            <input type="text" id="subtotal" class="form-control" ng-model="invoice.subtotal" style="background-color:#FFF;" disabled/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="tax" class="col-md-2 offset-md-4">Tax</label>
+        <div class="col-md-2 input-group">
+            <span class="input-group-addon">$</span>
+            <input type="text" id="tax" class="form-control" ng-model="invoice.tax" style="background-color:#FFF;" disabled/>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="total" class="col-md-2 offset-md-4">Total</label>
+        <div class="col-md-2 input-group">
+            <span class="input-group-addon">$</span>
+            <input type="text" id="total" class="form-control" ng-model="invoice.total" style="background-color:#FFF;" disabled/>
+        </div>
+    </div>
+    <hr />
+    <button class="btn btn-primary btn-lg mb-5 clickable" ng-click="editInvoice(invoice.id)">Edit</button>
+</div>

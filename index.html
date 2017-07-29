@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+    <head>
+        <title>CRCS Invoicing System</title>
+
+        <!-- Bootstrap and dependencies -->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- PDF Rqmnts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+        <!-- Angular! -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.js"></script>
+
+        <!-- easy animations -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/main.css" />
+
+    </head>
+    <body ng-app="invoices" ng-controller="invoiceCtrl">
+        <div class="ng-cloak" ng-view>
+
+        </div>
+        <footer class="text-muted text-center">
+            <small>&copy; Nate St. George 2017, created for Castle Rock Computer Solutions</small>
+        </footer>
+
+        <!-- Confirm modal -->
+        <div class="modal fade" id="confirm" role="dialog" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Are you sure?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Archiving doesn't delete an entry, but it will be harder to access.
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary clickable" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger clickable" data-dismiss="modal" onclick="archive(); window.telescope.changePage('all')">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+    </body>
+</html>
+
+<script src="js/app.js"></script>
+<script src="js/wrappers.js"></script>
