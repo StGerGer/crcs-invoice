@@ -20,15 +20,15 @@
                             Archive
                         </th>
                     </thead>
-                    <tr ng-repeat="person in all_invoices" class="text-center clickable" ng-click="changePage('edit', person.invoiceID)">
+                    <tr ng-repeat="person in all_invoices" class="text-center clickable" ng-click="changePage('/invoice')">
                         <td>
-                            {{ person.first + " " + person.last }}
+                            {{ person.first_name + " " + person.last_name }}
                         </td>
                         <td>
                             {{ person.email }}
                         </td>
                         <td>
-                            {{ person.invoice_date }}
+                            {{ person.date }}
                         </td>
                         <td>
                             <button type="button" class="btn btn-secondary deleter clickable" data-toggle="modal" data-target="#confirm" ng-click="select(person.invoiceID);">

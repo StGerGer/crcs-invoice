@@ -17,13 +17,17 @@ app.config(function($routeProvider) {
     },
     edit = {
         templateUrl: 'views/edit.html'
+    },
+    invoice = {
+      templateUrl: 'views/invoice.html'
     }
 
     $routeProvider
         .when('/', search)
         .when('/all', all)
         .when('/create', create)
-        .when('/edit', edit);
+        .when('/edit', edit)
+        .when('/invoice', invoice);
 });
 
 app.controller('invoiceCtrl', function($scope, $location) {
@@ -36,6 +40,7 @@ app.controller('invoiceCtrl', function($scope, $location) {
     $scope.invoice = {
         id: 0, // Used by edit function
         paid_by: "Cash",
+        date: new Date(),
         discount_type: "%",
         discount: 0,
         subtotal: 0,
@@ -127,6 +132,23 @@ app.controller('invoiceCtrl', function($scope, $location) {
     }
 
     $scope.get_all = get_all();
+
+    $scope.generatePDF = function() {
+
+      console.log($scope.invoice);
+
+      var pdf = new jsPDF('p', 'pt', 'a4'),
+        pdfConf = {
+        pagesplit: false,
+        background: '#fff'
+      };
+
+      pdf.addHTML(angular.element("#invoice"), 0, 0, pdfConf, function() {
+        pdf.save($scope.invoice.last_name + ' Invoice - ' + $scope.invoice.date + '.pdf');
+        var b64Data = pdf.output("datauri");
+        emailCustomer(b64Data);
+      });
+    }
 
     get_all();
 });

@@ -10,6 +10,7 @@ html, body {
     font-family: 'Roboto', sans-serif;
     color: #333;
     overflow-x: hidden;
+    height: 100vh;
 }
 
 footer {
@@ -121,6 +122,14 @@ a {
     border-color: #4885ed;
 }
 
+.btn, .clickable {
+  cursor: pointer;
+}
+
+.clickable:hover {
+  opacity: 0.8;
+}
+
 :not(.no-animate) {
     transition: 0.2s;
 }
@@ -148,8 +157,83 @@ a {
     z-index: 999;
 }
 
-input[type=checkbox] { display:none; } /* to hide the checkbox itself */
-input[type=checkbox] + label:before {
+/* Invoice styles */
+#invoice {
+  width: 800px;
+  margin-top: 20px;
+  margin-left: calc(50vw - 400px);
+  background-color: #FFF;
+  box-shadow: 0 5px 10px #CCC;
+  border: 1px solid #CCC;
+}
+
+.header-img {
+  width: 400px;
+  height: 176px;
+}
+
+.inv-header-box {
+  margin: auto 50px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.invoice-table {
+  width: 780px;
+  margin: 10px;
+}
+
+.invoice-table th {
+  font-weight: bold;
+}
+
+.invoice-info, .invoice-footer {
+  display: flex;
+  flex-direction: row;
+  margin: 20px;
+  border: 1px solid #CCC;
+  width: 760px;
+  padding: 10px;
+}
+
+.invoice-info *, .invoice-footer * {
+  flex: 1 1 0;
+}
+
+.inv-paidby {
+  text-align: left;
+}
+
+.inv-totals {
+  text-align: right;
+}
+
+.horiz-flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.horiz-flex * {
+  flex: 1 1 0;
+}
+
+.horizontal-fill {
+  width: 100%;
+}
+
+@media(max-width: 800px) {
+  #invoice {
+    width: 100vw;
+  }
+}
+
+/*input[type=checkbox] { display:none; } /* to hide the checkbox itself */
+/*input[type=checkbox] + label:before {
+>>>>>>> e2cf6aa06ed6d502ccab8bc9590c49c133c373ea
   font-family: FontAwesome;
   color: #DDD;
   display: inline-block;
@@ -159,4 +243,8 @@ input[type=checkbox] + label:before { content: "\f0c8"; }
 input[type=checkbox] + label:before { letter-spacing: 10px; }
 
 input[type=checkbox]:checked + label:before { content: "\f14a"; }
+<<<<<<< HEAD
 input[type=checkbox]:checked + label:before { letter-spacing: 5px; }
+=======
+input[type=checkbox]:checked + label:before { letter-spacing: 5px; }*/
+>>>>>>> e2cf6aa06ed6d502ccab8bc9590c49c133c373ea

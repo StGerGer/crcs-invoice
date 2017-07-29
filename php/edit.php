@@ -13,19 +13,19 @@
     $last = end($keys);
     reset($invoice_data);
 
-    echo $last;
-
     foreach($invoice_data as $key=>$item) {
-        if(is_numeric($item)) {
+        if(is_numeric($item) && $key != $last) {
             $str .= $key . ' = ' . $item . ', ';
         } else {
-            if($key != $last) {
-                $str .= $key . ' = "' . $item . '", ';
+            if($key == $last) {
+                $str .= $key . ' = "' . $item . '" ';
+            } else {
+              $str .= $key . ' = "' . $item . '", ';
             }
         }
     }
     $sql = sprintf ('UPDATE `invoice_data` SET %s WHERE invoiceID = %s;', $str, $invoice_data['invoiceID']);
-    echo $sql;
+
     if(!$result = $db->query($sql)) {
         die('Couldn\'t add customer data: ' . $db->error);
     } else {

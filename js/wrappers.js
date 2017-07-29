@@ -2,7 +2,7 @@ var results;
 var dc = new DataConvert();
 
 function DataConvert() {
-    this.toDatabase = function(edit) {
+    this.toDatabase = function(edit, raw) {
         var re_invoice = JSON.parse(localStorage.getItem("invoice_storage"));   // I know none of this would be necessary if I named things well...
         re_invoice.item_arr = [];
         re_invoice.price_arr = [];
@@ -23,20 +23,29 @@ function DataConvert() {
 
         if(edit) {
             re_invoice.invoiceID = re_invoice.id;
+            delete re_invoice.date;
         }
         delete re_invoice.id;
         delete re_invoice.first_name;
         delete re_invoice.last_name;
         delete re_invoice.item_object_array;
         delete re_invoice.payment_type;
+        delete re_invoice.$$hashKey;
 
-        return '{"invoice":'+JSON.stringify(re_invoice)+'}';
+        console.log(JSON.stringify(re_invoice));
 
+        if(raw) {
+          return re_invoice;
+        } else {
+          return '{"invoice":'+JSON.stringify(re_invoice)+'}';
+        }
     }
 
     this.fromDatabase = function(input) {
         var i = window.telescope.invoice;
+        var date = new Date(input.invoice_date);
         i.id = parseInt(input.invoiceID);  // Needless to say, I've learned my lesson.
+        i.date = (date.getMonth()+1)+"/"+date.getUTCDate()+"/"+date.getFullYear();
         i.first_name = input.first;
         i.last_name = input.last;
         i.email = input.email;
@@ -55,7 +64,7 @@ function DataConvert() {
             i.item_object_array[index] = {
                 name: val,
                 price: parseFloat(input.price_arr[index]),
-                is_hardware: input.hardware_arr[index]
+                is_hardware: input.hardware_arr[index] == 'true'
             }
         });
         window.telescope.$apply(function() {
@@ -107,6 +116,7 @@ function invoice_add() {
         window.telescope.invoice = {
             id: 0, // Used by edit function
             paid_by: "Cash",
+            date: new Date(),
             discount_type: "%",
             discount: 0,
             subtotal: 0,
@@ -120,16 +130,30 @@ function invoice_add() {
 
 function invoice_edit() {
     $.post("./php/edit.php", JSON.parse(dc.toDatabase(true)), function(response) {
-        console.log(response);
+      console.log(response);
+        if(response == "done") {
+          get_all();
+          window.telescope.invoice = {
+              id: 0, // Used by edit function
+              paid_by: "Cash",
+              date: new Date(),
+              discount_type: "%",
+              discount: 0,
+              subtotal: 0,
+              tax: 0,
+              total: 0
+          };
+          window.telescope.invoice.item_object_array = [{}];
+          window.telescope.changePage('all');
+        }
         //console.log(dc.toDatabase(true));
     });
 }
 
-function get_one() {
-    $.post("./php/get_one.php", {id: window.telescope.invoice.id}, function(response) {
+function get_one(id) {
+    $.post("./php/get_one.php", {id: id || window.telescope.invoice.id}, function(response) {
         var data = JSON.parse(response)[0];
         dc.fromDatabase(data);
-
     });
 }
 
@@ -137,15 +161,25 @@ function get_all() {
     var ajax = new XMLHttpRequest();
     ajax.responseType = 'json';
     ajax.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            all_invoices = this.response; // Set variable for JS outside Angular's scope in all invoices page
-            window.telescope.$apply(function() {
-                window.telescope.all_invoices = all_invoices;
-            }); // Apply changes to scope variable in Angular
-        }
+      if (this.readyState == 4 && this.status == 200) {
+        var all_invoices = [];
+        this.response.forEach(function(invoice) {
+          all_invoices.push(dc.fromDatabase(invoice));
+        })
+        window.telescope.$apply(function() {
+            window.telescope.all_invoices = all_invoices;
+        }); // Apply changes to scope variable in Angular
+      }
     };
     ajax.open("GET", "php/get_all.php", true);
     ajax.send();
+}
+
+function emailCustomer(pdf) {
+  // $.post("./php/email.php", {pdf: pdf, invoice: dc.toDatabase(null, true)}, function(response) {
+  //   console.log(response);
+  // })
+  
 }
 
 function archive() {

@@ -1,0 +1,86 @@
+<div id="invoice" class="container-fluid text-center">
+  <div class="row">
+    <span class="pull-left inv-header-box">{{invoice.date}}</span>
+    <img src="img/logo.png" class="mx-auto header-img"/>
+    <span class="pull-right inv-header-box">Invoice # <br>{{invoice.id}}</span>
+  </div>
+  <div class="row">
+    <span class="mx-auto blue">Invoice</span>
+  </div>
+  <div class="row">
+    <table class="table invoice-table">
+      <tr>
+        <td></td>
+        <th class="text-center">
+          Services & Hardware
+        </th>
+        <th>
+          Price
+        </th>
+      </tr>
+      <tr ng-repeat="item in invoice.item_object_array">
+        <td style="width: 100px">
+          {{item.is_hardware ? 'H' : 'S'}}
+        </td>
+        <td ng-bind="item.name">
+        </td>
+        <td ng-bind="'$'+item.price.toFixed(2)" style="width: 100px">
+        </td>
+      </tr>
+    </table>
+    <div class="invoice-info">
+      <div class="inv-paidby">
+        Paid By: <br />
+        {{invoice.paid_by}}
+      </div>
+      <div class="inv-customer">
+        Customer: <br />
+        {{invoice.first_name+" "+invoice.last_name}} <br />
+        {{invoice.email}}
+      </div>
+      <div class="inv-totals">
+        <span ng-if="invoice.discount != 0">
+          Discount: {{invoice.discount_type == '$' ? '$'+invoice.discount : invoice.discount+'%'}}<br />
+        </span>
+        Subtotal: ${{invoice.subtotal.toFixed(2)}}<br />
+        Tax: ${{invoice.tax.toFixed(2)}}<br />
+        <b>Total: ${{invoice.total.toFixed(2)}}</b>
+      </div>
+    </div>
+    <div class="invoice-footer">
+      <div>
+        <img src="img/like.jpg" style="width: 150px" /> <br />
+        <b>Facebook.com</b> <br />
+        /CastleRock <br />
+        ComputerSolutions
+      </div>
+      <div>
+        <b>Thank you for your business!</b> <br />
+        <b>Feel free to call us at our office: </b> <br />
+        <h5>720-232-2761</h5>
+        <div class="horiz-flex small">
+          <div>
+            <b>We are located at:</b> <br />
+            21 N Wilcox St Ste C <br />
+            Castle Rock, CO 80104
+          </div>
+          <div>
+            <b>Note:</b> <br />
+            Please call to set up an appointment!
+          </div>
+        </div>
+      </div>
+      <div>
+        Please give us a good rating on Google Maps! <br /> <br />
+        <h5>Goo.gl/maps/8Thk</h5>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="horizontal-fill text-center">
+  <div class="mx-auto btn-group btn-group-lg">
+    <button class="btn btn-primary mt-4" ng-click="generatePDF()">Send to Customer</button>
+    <button class="btn btn-secondary mt-4 text-muted" ng-click="changePage('edit')">Edit</button>
+  </div>
+</div>
+<img src="#" class="result" alt="Resulting image" />
