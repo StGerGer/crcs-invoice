@@ -158,21 +158,18 @@ function get_one(id) {
 }
 
 function get_all() {
-    var ajax = new XMLHttpRequest();
-    ajax.responseType = 'json';
-    ajax.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
+    $.get("./php/get_all.php", {}, function(response) {
         var all_invoices = [];
-        this.response.forEach(function(invoice) {
+        console.log(response);
+        response = JSON.parse(response);
+        response.forEach(function(invoice) {
+          console.log(invoice);
           all_invoices.push(dc.fromDatabase(invoice));
         })
         window.telescope.$apply(function() {
             window.telescope.all_invoices = all_invoices;
         }); // Apply changes to scope variable in Angular
-      }
-    };
-    ajax.open("GET", "php/get_all.php", true);
-    ajax.send();
+    })  
 }
 
 function emailCustomer(pdf) {

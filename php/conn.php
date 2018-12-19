@@ -2,7 +2,7 @@
     ini_set('html_errors', false);
     # Basic connection to CRCS database.
 
-    $db = new mysqli('localhost', 'root', 'password', 'crcs_invoice'); # Check these values
+    $db = new mysqli('localhost', 'root', '', 'crcs_invoice'); # Check these values
 
     global $db;
 

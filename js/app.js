@@ -110,7 +110,6 @@ app.controller('invoiceCtrl', function($scope, $location) {
     $scope.addInvoice = function() {
         localStorage.setItem('invoice_storage', JSON.stringify($scope.invoice));
         invoice_add();
-    }
 
     $scope.editInvoice = function() {
         localStorage.setItem('invoice_storage', JSON.stringify($scope.invoice));
